@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
+const categoryRoutes = require('./routes/category');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,6 +21,12 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
   .catch((err) => console.log('Connexion à MongoDB échouée !', err));
 
 app.use(bodyParser.json());
+
+/**
+ * App Routes
+ */
+
+app.use('/api/category', categoryRoutes);
 
 // Export the constant to access it from the other project files like the node server file
 module.exports = app;
